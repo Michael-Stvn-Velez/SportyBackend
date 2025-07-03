@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\BackendSport.Application",
+    "\\BackendSport.Application\\Interfaces",
+    "\\BackendSport.Application\\UseCases",
+    "\\BackendSport.Infrastructure",
+    "\\BackendSport.Infrastructure\\Persistence"
+  ],
+  "SelectedNode": "\\BackendSport.Application\\Interfaces\\IRoleRepository.cs",
+  "PreviewInSolutionExplorer": false
+}

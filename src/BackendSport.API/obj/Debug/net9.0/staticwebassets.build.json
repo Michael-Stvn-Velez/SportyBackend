@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "7S4Cux9eXScP4PEClmwoh0l3OJSy2WjQyroAPD3Xp3w=",
+  "Source": "BackendSport.API",
+  "BasePath": "_content/BackendSport.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

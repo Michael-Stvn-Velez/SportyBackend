@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BackendSport.API</name>
+    </assembly>
+    <members>
+        <member name="T:BackendSport.API.Controllers.Auth.UserController">
+            <summary>
+            Controlador para gestionar usuarios
+            </summary>
+        </member>
+        <member name="M:BackendSport.API.Controllers.Auth.UserController.CreateUser(BackendSport.Application.DTOs.AuthDTOs.CreateUserDto)">
+            <summary>
+            Registra un nuevo usuario en el sistema
+            </summary>
+            <param name="createUserDto">Datos del usuario a registrar</param>
+            <returns>Usuario creado exitosamente</returns>
+            <response code="201">Usuario creado exitosamente</response>
+            <response code="400">Datos de entrada inválidos</response>
+            <response code="409">Ya existe un usuario con ese email</response>
+            <response code="500">Error interno del servidor</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.PermisosControllers.PermisosController.CrearPermisos(BackendSport.Application.DTOs.PermisosDTOs.PermisosDto)">
+            <summary>
+            Crea un nuevo permiso.
+            </summary>
+            <param name="permisosDto">Datos del permisos a crear (nombre y descripcion)</param>
+            <returns>El permisos creado (nombre y descripcion)</returns>
+            <response code="200">Permisos creado correctamente</response>
+            <response code="400">Ya existe un permisos con ese nombre</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.PermisosControllers.PermisosController.EditarPermisos(System.String,BackendSport.Application.DTOs.PermisosDTOs.PermisosUpdateDto)">
+            <summary>
+            Edita un permiso existente.
+            </summary>
+            <param name="id">Id del permiso a editar</param>
+            <param name="permisosUpdateDto">Datos nuevos del permiso</param>
+            <returns>True si se editó correctamente</returns>
+            <response code="200">Permiso editado correctamente</response>
+            <response code="400">Error de validación</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.PermisosControllers.PermisosController.EliminarPermisos(System.String)">
+            <summary>
+            Elimina un permiso existente.
+            </summary>
+            <param name="id">Id del permiso a eliminar</param>
+            <returns>True si se eliminó correctamente</returns>
+            <response code="200">Permiso eliminado correctamente</response>
+            <response code="400">Error de validación</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.PermisosControllers.PermisosController.ObtenerPermisosPorId(System.String)">
+            <summary>
+            Obtiene un permiso por su id.
+            </summary>
+            <param name="id">Id del permiso</param>
+            <returns>El permiso encontrado (id, nombre, descripcion)</returns>
+            <response code="200">Permiso encontrado</response>
+            <response code="404">Permiso no encontrado</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.PermisosControllers.PermisosController.ObtenerTodos">
+            <summary>
+            Obtiene todos los permisos.
+            </summary>
+            <returns>Lista de permisos</returns>
+            <response code="200">Lista de permisos</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.RolControllers.RolController.CrearRol(BackendSport.Application.DTOs.RolDTOs.RolDto)">
+            <summary>
+            Crea un nuevo rol.
+            </summary>
+            <param name="rolDto">Datos del rol a crear (nombre y descripcion)</param>
+            <returns>El rol creado (nombre y descripcion)</returns>
+            <response code="200">Rol creado correctamente</response>
+            <response code="400">Ya existe un rol con ese nombre</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.RolControllers.RolController.EditarRol(System.String,BackendSport.Application.DTOs.RolDTOs.RolUpdateDto)">
+            <summary>
+            Edita un rol existente.
+            </summary>
+            <param name="id">Id del rol a editar</param>
+            <param name="rolUpdateDto">Datos nuevos del rol</param>
+            <returns>True si se editó correctamente</returns>
+            <response code="200">Rol editado correctamente</response>
+            <response code="400">Error de validación</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.RolControllers.RolController.EliminarRol(System.String)">
+            <summary>
+            Elimina un rol existente.
+            </summary>
+            <param name="id">Id del rol a eliminar</param>
+            <returns>True si se eliminó correctamente</returns>
+            <response code="200">Rol eliminado correctamente</response>
+            <response code="400">Error de validación</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.RolControllers.RolController.ObtenerRolPorId(System.String)">
+            <summary>
+            Obtiene un rol por su id.
+            </summary>
+            <param name="id">Id del rol</param>
+            <returns>El rol encontrado (id, nombre, descripcion, permisos)</returns>
+            <response code="200">Rol encontrado</response>
+            <response code="404">Rol no encontrado</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.RolControllers.RolController.ObtenerTodos">
+            <summary>
+            Obtiene todos los roles.
+            </summary>
+            <returns>Lista de roles</returns>
+            <response code="200">Lista de roles</response>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "7z6kk27Xy0s=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Sistemas\\Desktop\\backend\\src\\BackendSport.Application\\BackendSport.Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sistemas\\.nuget\\packages\\mongodb.bson\\2.25.0\\mongodb.bson.2.25.0.nupkg.sha512",
+    "C:\\Users\\Sistemas\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\Sistemas\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\5.0.0\\system.runtime.compilerservices.unsafe.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

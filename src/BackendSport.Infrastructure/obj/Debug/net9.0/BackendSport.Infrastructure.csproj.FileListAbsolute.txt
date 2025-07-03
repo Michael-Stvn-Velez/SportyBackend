@@ -1,0 +1,17 @@
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.AssemblyInfo.cs
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Infrastructure.deps.json
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Infrastructure.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Infrastructure.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Application.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Domain.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Domain.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\bin\Debug\net9.0\BackendSport.Application.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendS.B8A8C2E4.Up2Date
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\refint\BackendSport.Infrastructure.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\ref\BackendSport.Infrastructure.dll

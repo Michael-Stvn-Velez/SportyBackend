@@ -1,0 +1,15 @@
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\bin\Debug\net9.0\BackendSport.Application.deps.json
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\bin\Debug\net9.0\BackendSport.Application.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\bin\Debug\net9.0\BackendSport.Application.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\bin\Debug\net9.0\BackendSport.Domain.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\bin\Debug\net9.0\BackendSport.Domain.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.csproj.AssemblyReference.cache
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.AssemblyInfoInputs.cache
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.AssemblyInfo.cs
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.csproj.CoreCompileInputs.cache
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendS.3F652A96.Up2Date
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\refint\BackendSport.Application.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.pdb
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\ref\BackendSport.Application.dll
