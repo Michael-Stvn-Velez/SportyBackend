@@ -11,14 +11,22 @@
         </member>
         <member name="M:BackendSport.API.Controllers.Auth.UserController.CreateUser(BackendSport.Application.DTOs.AuthDTOs.CreateUserDto)">
             <summary>
-            Registra un nuevo usuario en el sistema
+            Crea un nuevo usuario.
             </summary>
-            <param name="createUserDto">Datos del usuario a registrar</param>
-            <returns>Usuario creado exitosamente</returns>
-            <response code="201">Usuario creado exitosamente</response>
-            <response code="400">Datos de entrada inválidos</response>
-            <response code="409">Ya existe un usuario con ese email</response>
-            <response code="500">Error interno del servidor</response>
+            <param name="createUserDto">Datos del usuario a crear</param>
+            <returns>El usuario creado</returns>
+            <response code="201">Usuario creado correctamente</response>
+            <response code="400">Ya existe un usuario con ese email</response>
+        </member>
+        <member name="M:BackendSport.API.Controllers.Auth.UserController.TengoPermisoEjemplo(BackendSport.Application.Services.IPermissionCheckerService,System.String)">
+            <summary>
+            Ejemplo de endpoint que verifica si un usuario tiene el permiso 'tengo_permisos'.
+            </summary>
+            <param name="permissionChecker">Servicio de verificación de permisos</param>
+            <param name="userId">ID del usuario a verificar</param>
+            <returns>Mensaje de confirmación si tiene el permiso</returns>
+            <response code="200">Usuario tiene el permiso requerido</response>
+            <response code="403">Usuario no tiene el permiso requerido</response>
         </member>
         <member name="M:BackendSport.API.Controllers.PermisosControllers.PermisosController.CrearPermisos(BackendSport.Application.DTOs.PermisosDTOs.PermisosDto)">
             <summary>

@@ -2,11 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\BackendSport.Application",
-    "\\BackendSport.Application\\Interfaces",
     "\\BackendSport.Application\\UseCases",
-    "\\BackendSport.Infrastructure",
-    "\\BackendSport.Infrastructure\\Persistence"
+    "\\BackendSport.Application\\UseCases\\AuthUseCases",
+    "\\BackendSport.Infrastructure\\Persistence",
+    "\\BackendSport.Infrastructure\\Persistence\\AuthPersistence",
+    "\\BackendSport.Infrastructure\\Services"
   ],
-  "SelectedNode": "\\BackendSport.Application\\Interfaces\\IRoleRepository.cs",
+  "SelectedNode": "\\BackendSport.Application\\UseCases\\AuthUseCases\\LogoutAllUserDevicesUseCase.cs",
   "PreviewInSolutionExplorer": false
 }

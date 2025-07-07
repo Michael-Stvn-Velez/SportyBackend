@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BackendSport.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9180bc23c9e63a22af53ec810464a3ce7535e96e")]
 [assembly: System.Reflection.AssemblyProductAttribute("BackendSport.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BackendSport.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -13,3 +13,4 @@ C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\refint\BackendSport.Application.dll
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.pdb
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\ref\BackendSport.Application.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Application\obj\Debug\net9.0\BackendSport.Application.sourcelink.json

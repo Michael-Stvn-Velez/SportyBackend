@@ -56,3 +56,9 @@ C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\BackendS
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\BackendSport.API.xml
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\BCrypt.Net-Next.dll
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\obj\Debug\net9.0\BackendSport.API.xml
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\obj\Debug\net9.0\BackendSport.API.sourcelink.json
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.API\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll

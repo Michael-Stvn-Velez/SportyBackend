@@ -2,10 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BackendSport.Infrastructure.Persistence;
 using BackendSport.Infrastructure.Services;
-using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Application.Services;
-using BackendSport.Application.UseCases.AuthUseCases;
-using BackendSport.Infrastructure.Persistence.AuthPersistence;
 
 namespace BackendSport.Infrastructure;
 
@@ -21,14 +18,11 @@ public static class DependencyInjection
         services.AddSingleton(mongoDbSettings);
         services.AddSingleton<MongoDbContext>();
 
-        // Registrar repositorios
-        services.AddScoped<IUserRepository, UserRepository>();
-
         // Registrar servicios
         services.AddScoped<IPasswordService, PasswordService>();
-
-        // Registrar casos de uso
-        services.AddScoped<CreateUserUseCase>();
+        services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<BackendSport.Application.Services.IPermissionCheckerService, BackendSport.Application.Services.PermissionCheckerService>();
+        
 
         return services;
     }

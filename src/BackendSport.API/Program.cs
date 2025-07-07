@@ -6,6 +6,9 @@ using BackendSport.Application.Interfaces.PermisosInterfaces;
 using BackendSport.Infrastructure.Persistence.PermisosPersistence;
 using BackendSport.Application.UseCases.PermisosUseCases;
 using BackendSport.Application.UseCases.PermisosRolesUseCases;
+using BackendSport.Application.UseCases.AuthUseCases;
+using BackendSport.Application.Interfaces.AuthInterfaces;
+using BackendSport.Infrastructure.Persistence.AuthPersistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,29 @@ builder.Services.AddSwaggerGen(c =>
     {
         c.IncludeXmlComments(xmlPath);
     }
+
+    c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "Ingrese el token JWT en el campo. Ejemplo: Bearer {token}",
+        Name = "Authorization",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
+    {
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
 
 // Agregar servicios de Infrastructure
@@ -36,6 +62,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 //Repositorios
 builder.Services.AddScoped<IRolRepository, RolRepository>();
 builder.Services.AddScoped<IPermisosRepository, PermisosRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 
 //Casos de uso
 builder.Services.AddScoped<CreateRolUseCase>();
@@ -51,6 +79,12 @@ builder.Services.AddScoped<GetAllPermisosUseCase>();
 builder.Services.AddScoped<AsignarPermisosARolUseCase>();
 builder.Services.AddScoped<RemoverPermisosARolUseCase>();
 builder.Services.AddScoped<ObtenerPermisosRolUseCase>();
+builder.Services.AddScoped<CreateUserUseCase>();
+builder.Services.AddScoped<LoginUserUseCase>();
+builder.Services.AddScoped<RefreshTokenUseCase>();
+builder.Services.AddScoped<LogoutUserUseCase>();
+builder.Services.AddScoped<LogoutAllUserDevicesUseCase>();
+builder.Services.AddScoped<AsignarRolAUsuarioUseCase>();
 
 var app = builder.Build();
 

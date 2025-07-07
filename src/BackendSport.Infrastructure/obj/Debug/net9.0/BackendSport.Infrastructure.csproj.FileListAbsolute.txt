@@ -15,3 +15,4 @@ C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\refint\BackendSport.Infrastructure.dll
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.pdb
 C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\ref\BackendSport.Infrastructure.dll
+C:\Users\Sistemas\Desktop\backend\src\BackendSport.Infrastructure\obj\Debug\net9.0\BackendSport.Infrastructure.sourcelink.json
