@@ -355,3 +355,62 @@ appsettings.*.json
 *.bak
 *.swp
 *.swo
+
+# Additional .NET Core / .NET 5+ specific
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Entity Framework
+Migrations/
+!Migrations/Configuration.cs
+
+# Log files
+*.log
+logs/
+
+# Runtime directory
+wwwroot/dist/
+
+# Package files
+*.nupkg
+*.snupkg
+
+# NuGet
+**/packages/
+!**/packages/build/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Secrets and environment files
+secrets.json
+.env
+.env.local
+.env.development
+.env.staging
+.env.production
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Test results
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
