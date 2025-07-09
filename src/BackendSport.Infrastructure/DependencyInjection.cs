@@ -3,6 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using BackendSport.Infrastructure.Persistence;
 using BackendSport.Infrastructure.Services;
 using BackendSport.Application.Services;
+using BackendSport.Application.Interfaces.DeporteInterfaces;
+using BackendSport.Infrastructure.Persistence.DeportePersistence;
 
 namespace BackendSport.Infrastructure;
 
@@ -22,6 +24,8 @@ public static class DependencyInjection
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<BackendSport.Application.Services.IPermissionCheckerService, BackendSport.Application.Services.PermissionCheckerService>();
+        services.AddScoped<IAuthorizationService, AuthorizationService>();
+        services.AddScoped<IDeporteRepository, DeporteRepository>();
         
 
         return services;

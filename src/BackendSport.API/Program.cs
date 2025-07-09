@@ -9,8 +9,23 @@ using BackendSport.Application.UseCases.PermisosRolesUseCases;
 using BackendSport.Application.UseCases.AuthUseCases;
 using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Infrastructure.Persistence.AuthPersistence;
+using BackendSport.Application.Interfaces.DeporteInterfaces;
+using BackendSport.Infrastructure.Persistence.DeportePersistence;
+using BackendSport.Application.UseCases.DeporteUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configurar CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSwagger", policy =>
+    {
+        policy.WithOrigins("http://localhost:5001")
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+        // .AllowCredentials(); // No usar a menos que sea estrictamente necesario
+    });
+});
 
 // Configurar servicios
 builder.Services.AddControllers();
@@ -32,14 +47,17 @@ builder.Services.AddSwaggerGen(c =>
         c.IncludeXmlComments(xmlPath);
     }
 
+    // Configuración mejorada para JWT en Swagger
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
     {
-        Description = "Ingrese el token JWT en el campo. Ejemplo: Bearer {token}",
+        Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
         Name = "Authorization",
         In = Microsoft.OpenApi.Models.ParameterLocation.Header,
-        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        BearerFormat = "JWT"
     });
+
     c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         {
@@ -51,7 +69,7 @@ builder.Services.AddSwaggerGen(c =>
                     Id = "Bearer"
                 }
             },
-            new string[] {}
+            Array.Empty<string>()
         }
     });
 });
@@ -64,6 +82,7 @@ builder.Services.AddScoped<IRolRepository, RolRepository>();
 builder.Services.AddScoped<IPermisosRepository, PermisosRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+builder.Services.AddScoped<IDeporteRepository, DeporteRepository>();
 
 //Casos de uso
 builder.Services.AddScoped<CreateRolUseCase>();
@@ -85,6 +104,11 @@ builder.Services.AddScoped<RefreshTokenUseCase>();
 builder.Services.AddScoped<LogoutUserUseCase>();
 builder.Services.AddScoped<LogoutAllUserDevicesUseCase>();
 builder.Services.AddScoped<AsignarRolAUsuarioUseCase>();
+builder.Services.AddScoped<CreateDeporteUseCase>();
+builder.Services.AddScoped<GetAllDeportesUseCase>();
+builder.Services.AddScoped<GetDeporteByIdUseCase>();
+builder.Services.AddScoped<UpdateDeporteUseCase>();
+builder.Services.AddScoped<DeleteDeporteUseCase>();
 
 var app = builder.Build();
 
@@ -96,8 +120,15 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackendSport API V1");
         c.RoutePrefix = string.Empty; // Swagger en la raíz
+        
+        // Configuración adicional para Swagger UI
+        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+        c.DefaultModelsExpandDepth(-1);
     });
 }
+
+// Configurar CORS - debe ir antes de UseAuthorization
+app.UseCors("AllowSwagger");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

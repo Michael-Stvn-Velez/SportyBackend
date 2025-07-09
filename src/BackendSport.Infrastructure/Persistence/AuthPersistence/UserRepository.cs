@@ -34,5 +34,36 @@ namespace BackendSport.Infrastructure.Persistence.AuthPersistence{
             var result = await _users.UpdateOneAsync(u => u.Id == userId, update);
             return result.ModifiedCount > 0;
         }
+        public async Task<bool> UpdateAsync(User user)
+        {
+            user.UpdatedAt = DateTime.UtcNow;
+            var result = await _users.ReplaceOneAsync(u => u.Id == user.Id, user);
+            return result.ModifiedCount > 0;
+        }
+        public async Task<bool> AddSportToUserAsync(string userId, string sportId)
+        {
+            var user = await GetByIdAsync(userId);
+            if (user == null) return false;
+
+            if (user.AddSport(sportId))
+            {
+                return await UpdateAsync(user);
+            }
+            return false;
+        }
+        public async Task<bool> RemoveSportFromUserAsync(string userId, string sportId)
+        {
+            var user = await GetByIdAsync(userId);
+            if (user == null) return false;
+
+            var sportToRemove = user.Sports.FirstOrDefault(s => s.SportId == sportId);
+            if (sportToRemove != null)
+            {
+                user.Sports.Remove(sportToRemove);
+                user.UpdatedAt = DateTime.UtcNow;
+                return await UpdateAsync(user);
+            }
+            return false;
+        }
     } 
 }

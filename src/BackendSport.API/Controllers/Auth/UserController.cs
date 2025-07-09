@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using BackendSport.Application.DTOs.AuthDTOs;
+using BackendSport.Application.DTOs.DeporteDTOs;
 using BackendSport.Application.UseCases.AuthUseCases;
+using BackendSport.Application.Services;
+using BackendSport.Infrastructure.Services;
+using BackendSport.Application.Interfaces.AuthInterfaces;
+using BackendSport.Domain.Entities.AuthEntities;
 
 namespace BackendSport.API.Controllers.Auth;
 
@@ -133,4 +138,82 @@ public class UserController : ControllerBase
             return BadRequest(new { mensaje = ex.Message });
         }
     }
-} 
+
+    [HttpPost("assign-sport")]
+    public async Task<IActionResult> AssignSport([FromBody] AsignarDeporteUsuarioDto dto, [FromServices] AsignarDeporteAUsuarioUseCase asignarDeporteAUsuarioUseCase)
+    {
+        try
+        {
+            if (dto == null || string.IsNullOrEmpty(dto.UserId) || string.IsNullOrEmpty(dto.SportId))
+            {
+                return BadRequest(new { mensaje = "UserId y SportId son requeridos" });
+            }
+            await asignarDeporteAUsuarioUseCase.ExecuteAsync(dto);
+            return Ok(new { mensaje = "Deporte asignado correctamente" });
+        }
+        catch (System.Exception ex)
+        {
+            return BadRequest(new { mensaje = ex.Message });
+        }
+    }
+
+    [HttpDelete("remove-sport")]
+    public async Task<IActionResult> RemoveSport([FromBody] RemoverDeporteUsuarioDto dto, [FromServices] RemoverDeporteDeUsuarioUseCase removerDeporteDeUsuarioUseCase)
+    {
+        try
+        {
+            if (dto == null || string.IsNullOrEmpty(dto.UserId) || string.IsNullOrEmpty(dto.SportId))
+            {
+                return BadRequest(new { mensaje = "UserId y SportId son requeridos" });
+            }
+            await removerDeporteDeUsuarioUseCase.ExecuteAsync(dto);
+            return Ok(new { mensaje = "Deporte removido correctamente" });
+        }
+        catch (System.Exception ex)
+        {
+            return BadRequest(new { mensaje = ex.Message });
+        }
+    }
+
+    [HttpGet("{userId}/sports")]
+    public async Task<IActionResult> GetUserSports(string userId, [FromServices] IUserRepository userRepository)
+    {
+        try
+        {
+            var user = await userRepository.GetByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound(new { mensaje = "Usuario no encontrado" });
+            }
+
+            return Ok(new { 
+                userId = user.Id,
+                sports = user.Sports,
+                sportsCount = user.GetSportsCount()
+            });
+        }
+        catch (System.Exception ex)
+        {
+            return BadRequest(new { mensaje = ex.Message });
+        }
+    }
+
+    [HttpPost("{userId}/sports/{sportId}/configure")]
+    public async Task<IActionResult> ConfigureUserSport(string userId, string sportId, [FromBody] ConfigureUserSportDto dto, [FromServices] ConfigureUserSportUseCase configureUserSportUseCase)
+    {
+        try
+        {
+            if (dto == null)
+            {
+                return BadRequest(new { mensaje = "Datos de configuración son requeridos" });
+            }
+
+            await configureUserSportUseCase.ExecuteAsync(userId, sportId, dto);
+            return Ok(new { mensaje = "Deporte configurado correctamente" });
+        }
+        catch (System.Exception ex)
+        {
+            return BadRequest(new { mensaje = ex.Message });
+        }
+    }
+}

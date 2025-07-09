@@ -26,6 +26,7 @@ namespace BackendSport.Application.UseCases.AuthUseCases{
             var user = new User
             {
                 Id = Guid.NewGuid().ToString(),
+                Name = createUserDto.Name,
                 Email = createUserDto.Email,
                 Password = _passwordService.HashPassword(createUserDto.Password),
                 CreatedAt = DateTime.UtcNow
@@ -38,6 +39,7 @@ namespace BackendSport.Application.UseCases.AuthUseCases{
             return new UserResponseDto
             {
                 Id = createdUser.Id.ToString(),
+                Name = createdUser.Name,
                 Email = createdUser.Email,
                 CreatedAt = createdUser.CreatedAt
             };
