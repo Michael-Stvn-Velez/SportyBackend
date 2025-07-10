@@ -94,7 +94,7 @@ namespace BackendSport.API.Controllers.DeporteControllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(dto.Nombre))
+                if (string.IsNullOrWhiteSpace(dto.Name))
                     return BadRequest(new { mensaje = "El nombre es obligatorio." });
                 var result = await _createUseCase.ExecuteAsync(dto);
                 return Ok(result);
@@ -120,7 +120,7 @@ namespace BackendSport.API.Controllers.DeporteControllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(dto.Nombre))
+                if (string.IsNullOrWhiteSpace(dto.Name))
                     return BadRequest(new { mensaje = "El nombre es obligatorio." });
                 var result = await _updateUseCase.ExecuteAsync(id, dto);
                 return Ok(result);

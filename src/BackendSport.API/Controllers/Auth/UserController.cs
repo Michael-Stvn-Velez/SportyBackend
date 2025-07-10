@@ -6,6 +6,7 @@ using BackendSport.Application.Services;
 using BackendSport.Infrastructure.Services;
 using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Domain.Entities.AuthEntities;
+using BackendSport.Domain.Services;
 
 namespace BackendSport.API.Controllers.Auth;
 
@@ -189,7 +190,7 @@ public class UserController : ControllerBase
             return Ok(new { 
                 userId = user.Id,
                 sports = user.Sports,
-                sportsCount = user.GetSportsCount()
+                sportsCount = UserSportService.GetUserSportsCount(user)
             });
         }
         catch (System.Exception ex)

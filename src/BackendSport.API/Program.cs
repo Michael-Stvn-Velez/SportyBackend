@@ -113,19 +113,22 @@ builder.Services.AddScoped<DeleteDeporteUseCase>();
 var app = builder.Build();
 
 // Configurar pipeline HTTP
-if (app.Environment.IsDevelopment())
+// Habilitar Swagger en todos los entornos para desarrollo
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackendSport API V1");
-        c.RoutePrefix = string.Empty; // Swagger en la raíz
-        
-        // Configuración adicional para Swagger UI
-        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
-        c.DefaultModelsExpandDepth(-1);
-    });
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackendSport API V1");
+    c.RoutePrefix = string.Empty; // Swagger en la raíz
+    
+    // Configuración adicional para Swagger UI
+    c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
+    c.DefaultModelsExpandDepth(-1);
+    
+    // Configuración para mejorar la experiencia de usuario
+    c.DisplayRequestDuration();
+    c.EnableDeepLinking();
+    c.EnableFilter();
+});
 
 // Configurar CORS - debe ir antes de UseAuthorization
 app.UseCors("AllowSwagger");
