@@ -23,10 +23,10 @@ public class GetDeporteConfigOptionsUseCase
         return new DeporteConfigOptionsDto
         {
             DeporteId = deporte.Id,
-            DeporteNombre = deporte.Nombre,
-            Posiciones = deporte.Posiciones ?? new List<string>(),
-            Niveles = deporte.NivelCompetitivo ?? new List<string>(),
-            MetricasRendimiento = deporte.MetricasRendimiento ?? new List<string>()
+            DeporteName = deporte.Name,
+            Positions = deporte.Positions ?? new List<string>(),
+            Levels = deporte.CompetitiveLevel ?? new List<string>(),
+            PerformanceMetrics = deporte.PerformanceMetrics ?? new List<string>()
         };
     }
 } 

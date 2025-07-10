@@ -5,6 +5,8 @@ using BackendSport.Infrastructure.Services;
 using BackendSport.Application.Services;
 using BackendSport.Application.Interfaces.DeporteInterfaces;
 using BackendSport.Infrastructure.Persistence.DeportePersistence;
+using BackendSport.Application.Interfaces.LocationInterfaces;
+using BackendSport.Infrastructure.Persistence.LocationPersistence;
 
 namespace BackendSport.Infrastructure;
 
@@ -27,6 +29,12 @@ public static class DependencyInjection
         services.AddScoped<IAuthorizationService, AuthorizationService>();
         services.AddScoped<IDeporteRepository, DeporteRepository>();
         
+        // Registrar repositorios de ubicación
+        services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IMunicipalityRepository, MunicipalityRepository>();
+        services.AddScoped<ILocalityRepository, LocalityRepository>();
+        services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
 
         return services;
     }

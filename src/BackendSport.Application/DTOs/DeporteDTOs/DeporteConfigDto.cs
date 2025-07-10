@@ -5,10 +5,10 @@ namespace BackendSport.Application.DTOs.DeporteDTOs;
 public class DeporteConfigOptionsDto
 {
     public string DeporteId { get; set; } = string.Empty;
-    public string DeporteNombre { get; set; } = string.Empty;
-    public List<string> Posiciones { get; set; } = new List<string>();
-    public List<string> Niveles { get; set; } = new List<string>();
-    public List<string> MetricasRendimiento { get; set; } = new List<string>();
+    public string DeporteName { get; set; } = string.Empty;
+    public List<string> Positions { get; set; } = new List<string>();
+    public List<string> Levels { get; set; } = new List<string>();
+    public List<string> PerformanceMetrics { get; set; } = new List<string>();
 }
 
 public class ConfigureUserSportDto

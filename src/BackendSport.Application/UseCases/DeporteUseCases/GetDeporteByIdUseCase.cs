@@ -21,15 +21,15 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
             return new DeporteListDto
             {
                 Id = d.Id,
-                Nombre = d.Nombre,
-                Modalidad = d.Modalidad,
-                Superficie = d.Superficie,
-                Posiciones = d.Posiciones,
-                Estadisticas = d.Estadisticas,
-                MetricasRendimiento = d.MetricasRendimiento,
-                TipoEvaluaciones = d.TipoEvaluaciones,
-                Formaciones = d.Formaciones,
-                NivelCompetitivo = d.NivelCompetitivo
+                Name = d.Name,
+                Modalities = d.Modalities,
+                Surfaces = d.Surfaces,
+                Positions = d.Positions,
+                Statistics = d.Statistics,
+                PerformanceMetrics = d.PerformanceMetrics,
+                EvaluationTypes = d.EvaluationTypes,
+                Formations = d.Formations,
+                CompetitiveLevel = d.CompetitiveLevel
             };
         }
     }

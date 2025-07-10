@@ -18,31 +18,31 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
             var existente = await _repository.GetByIdAsync(id);
             if (existente == null) 
                 throw new Exception("No se encontró el deporte.");
-            if (existente.Nombre != dto.Nombre && await _repository.ExistsByNombreAsync(dto.Nombre))
+            if (existente.Name != dto.Name && await _repository.ExistsByNameAsync(dto.Name))
                 throw new Exception("Ya existe un deporte con ese nombre.");
 
-            existente.Nombre = dto.Nombre;
-            existente.Modalidad = dto.Modalidad ?? new List<string>();
-            existente.Superficie = dto.Superficie ?? new List<string>();
-            existente.Posiciones = dto.Posiciones ?? new List<string>();
-            existente.Estadisticas = dto.Estadisticas ?? new List<string>();
-            existente.MetricasRendimiento = dto.MetricasRendimiento ?? new List<string>();
-            existente.TipoEvaluaciones = dto.TipoEvaluaciones ?? new List<string>();
-            existente.Formaciones = dto.Formaciones ?? new List<string>();
-            existente.NivelCompetitivo = dto.NivelCompetitivo ?? new List<string>();
+            existente.Name = dto.Name;
+            existente.Modalities = dto.Modalities ?? new List<string>();
+            existente.Surfaces = dto.Surfaces ?? new List<string>();
+            existente.Positions = dto.Positions ?? new List<string>();
+            existente.Statistics = dto.Statistics ?? new List<string>();
+            existente.PerformanceMetrics = dto.PerformanceMetrics ?? new List<string>();
+            existente.EvaluationTypes = dto.EvaluationTypes ?? new List<string>();
+            existente.Formations = dto.Formations ?? new List<string>();
+            existente.CompetitiveLevel = dto.CompetitiveLevel ?? new List<string>();
 
             await _repository.UpdateAsync(id, existente);
             return new DeporteDto
             {
-                Nombre = existente.Nombre,
-                Modalidad = existente.Modalidad,
-                Superficie = existente.Superficie,
-                Posiciones = existente.Posiciones,
-                Estadisticas = existente.Estadisticas,
-                MetricasRendimiento = existente.MetricasRendimiento,
-                TipoEvaluaciones = existente.TipoEvaluaciones,
-                Formaciones = existente.Formaciones,
-                NivelCompetitivo = existente.NivelCompetitivo
+                Name = existente.Name,
+                Modalities = existente.Modalities,
+                Surfaces = existente.Surfaces,
+                Positions = existente.Positions,
+                Statistics = existente.Statistics,
+                PerformanceMetrics = existente.PerformanceMetrics,
+                EvaluationTypes = existente.EvaluationTypes,
+                Formations = existente.Formations,
+                CompetitiveLevel = existente.CompetitiveLevel
             };
         }
     }

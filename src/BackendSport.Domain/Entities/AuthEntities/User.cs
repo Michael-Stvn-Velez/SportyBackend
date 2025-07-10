@@ -13,7 +13,25 @@ public class User
     
     [BsonElement("email")]
     public string Email { get; set; } = string.Empty;
+    // Documento
+    [BsonElement("documentTypeId")]
+    public string DocumentTypeId { get; set; } = string.Empty;
     
+    [BsonElement("documentNumber")]
+    public string DocumentNumber { get; set; } = string.Empty;
+    
+    [BsonElement("countryId")]
+    public string CountryId { get; set; } = string.Empty;
+    
+    [BsonElement("departmentId")]
+    public string? DepartmentId { get; set; } = null;
+    
+    [BsonElement("municipalityId")]
+    public string? MunicipalityId { get; set; } = null;
+    
+    [BsonElement("localityId")]
+    public string? LocalityId { get; set; } = null;
+
     [BsonElement("password")]
     public string Password { get; set; } = string.Empty;
 
@@ -28,58 +46,4 @@ public class User
     
     [BsonElement("updatedAt")]
     public DateTime? UpdatedAt { get; set; }
-
-    // Método para agregar deporte al usuario (solo ID)
-    public bool AddSport(string sportId)
-    {
-        if (Sports.Count >= 3)
-        {
-            return false;
-        }
-
-        if (Sports.Any(s => s.SportId == sportId))
-        {
-            return false;
-        }
-
-        Sports.Add(new UserSport { SportId = sportId });
-        UpdatedAt = DateTime.UtcNow;
-        return true;
-    }
-
-    // Método para configurar deporte del usuario
-    public bool ConfigureSport(string sportId, List<string> positions, string level, Dictionary<string, int> performanceMetrics)
-    {
-        var sport = Sports.FirstOrDefault(s => s.SportId == sportId);
-        if (sport == null)
-        {
-            return false;
-        }
-
-        sport.Positions = positions;
-        sport.Level = level;
-        sport.PerformanceMetrics = performanceMetrics;
-        sport.ConfiguredAt = DateTime.UtcNow;
-        UpdatedAt = DateTime.UtcNow;
-        return true;
-    }
-
-    // Método para verificar si tiene un deporte específico
-    public bool HasSport(string sportId)
-    {
-        return Sports.Any(s => s.SportId == sportId);
-    }
-
-    // Método para verificar si un deporte está configurado
-    public bool IsSportConfigured(string sportId)
-    {
-        var sport = Sports.FirstOrDefault(s => s.SportId == sportId);
-        return sport?.ConfiguredAt != null;
-    }
-
-    // Método para obtener la cantidad de deportes
-    public int GetSportsCount()
-    {
-        return Sports.Count;
-    }
 }

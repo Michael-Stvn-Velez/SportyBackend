@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using BackendSport.Application.DTOs.AuthDTOs;
 using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Application.Interfaces.DeporteInterfaces;
+using BackendSport.Domain.Services;
+using System.Collections.Generic; // Added for List
 
 namespace BackendSport.Application.UseCases.AuthUseCases
 {
@@ -27,15 +29,40 @@ namespace BackendSport.Application.UseCases.AuthUseCases
             if (deporte == null)
                 throw new InvalidOperationException("Deporte no encontrado");
 
-            if (user.GetSportsCount() >= 3)
+            if (!UserSportService.CanUserAddMoreSports(user))
                 throw new InvalidOperationException("El usuario ya tiene el máximo de 3 deportes permitidos");
 
-            if (user.HasSport(dto.SportId))
+            if (UserSportService.UserHasSport(user, dto.SportId))
                 throw new InvalidOperationException("El usuario ya tiene este deporte asignado");
 
-            var result = await _userRepository.AddSportToUserAsync(dto.UserId, dto.SportId);
+            // Crear UserSport con configuración inicial basada en el deporte
+            var userSport = CreateInitialUserSport(deporte);
+
+            var result = await _userRepository.AddSportToUserAsync(dto.UserId, userSport);
             if (!result)
                 throw new InvalidOperationException("No se pudo asignar el deporte al usuario");
+        }
+
+        private static BackendSport.Domain.Entities.AuthEntities.UserSport CreateInitialUserSport(BackendSport.Domain.Entities.DeporteEntities.Deporte deporte)
+        {
+            var userSport = new BackendSport.Domain.Entities.AuthEntities.UserSport
+            {
+                SportId = deporte.Id
+            };
+
+            // Si el deporte tiene posiciones, inicializar como array vacío
+            if (deporte.Positions != null && deporte.Positions.Count > 0)
+            {
+                userSport.Positions = new List<string>();
+            }
+
+            // Si el deporte tiene métricas, inicializar como diccionario vacío
+            if (deporte.PerformanceMetrics != null && deporte.PerformanceMetrics.Count > 0)
+            {
+                userSport.PerformanceMetrics = new Dictionary<string, int>();
+            }
+
+            return userSport;
         }
     }
 } 

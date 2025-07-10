@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using BackendSport.Application.DTOs.AuthDTOs;
 using BackendSport.Application.Interfaces.AuthInterfaces;
+using BackendSport.Domain.Services;
 
 namespace BackendSport.Application.UseCases.AuthUseCases
 {
@@ -20,7 +21,7 @@ namespace BackendSport.Application.UseCases.AuthUseCases
             if (user == null)
                 throw new InvalidOperationException("Usuario no encontrado");
 
-            if (!user.HasSport(dto.SportId))
+            if (!UserSportService.UserHasSport(user, dto.SportId))
                 throw new InvalidOperationException("El usuario no tiene este deporte asignado");
 
             var result = await _userRepository.RemoveSportFromUserAsync(dto.UserId, dto.SportId);

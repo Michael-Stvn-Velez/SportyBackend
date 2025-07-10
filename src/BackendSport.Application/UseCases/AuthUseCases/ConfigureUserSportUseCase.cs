@@ -1,6 +1,7 @@
 using BackendSport.Application.DTOs.DeporteDTOs;
 using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Application.Interfaces.DeporteInterfaces;
+using BackendSport.Domain.Services;
 
 namespace BackendSport.Application.UseCases.AuthUseCases;
 
@@ -32,13 +33,13 @@ public class ConfigureUserSportUseCase
         }
 
         // Validar que el usuario tiene el deporte asignado
-        if (!user.HasSport(sportId))
+        if (!UserSportService.UserHasSport(user, sportId))
         {
             throw new InvalidOperationException("El usuario no tiene este deporte asignado");
         }
 
         // Validar que no esté ya configurado
-        if (user.IsSportConfigured(sportId))
+        if (UserSportService.IsUserSportConfigured(user, sportId))
         {
             throw new InvalidOperationException("Este deporte ya está configurado para el usuario");
         }
@@ -50,21 +51,21 @@ public class ConfigureUserSportUseCase
         }
 
         // Validar que las posiciones existan en el deporte
-        var posicionesValidas = deporte.Posiciones ?? new List<string>();
+        var posicionesValidas = deporte.Positions ?? new List<string>();
         if (dto.Positions.Any(p => !posicionesValidas.Contains(p)))
         {
             throw new InvalidOperationException("Una o más posiciones no son válidas para este deporte");
         }
 
         // Validar que el nivel sea válido
-        var nivelesValidos = deporte.NivelCompetitivo ?? new List<string>();
+        var nivelesValidos = deporte.CompetitiveLevel ?? new List<string>();
         if (!nivelesValidos.Contains(dto.Level))
         {
             throw new InvalidOperationException("El nivel competitivo no es válido para este deporte");
         }
 
         // Validar métricas de rendimiento
-        var metricasValidas = deporte.MetricasRendimiento ?? new List<string>();
+        var metricasValidas = deporte.PerformanceMetrics ?? new List<string>();
         if (dto.PerformanceMetrics.Any(m => !metricasValidas.Contains(m.Key)))
         {
             throw new InvalidOperationException("Una o más métricas de rendimiento no son válidas para este deporte");
@@ -77,7 +78,7 @@ public class ConfigureUserSportUseCase
         }
 
         // Configurar el deporte
-        var success = user.ConfigureSport(sportId, dto.Positions, dto.Level, dto.PerformanceMetrics);
+        var success = UserSportService.ConfigureUserSport(user, sportId, dto.Positions, dto.Level, dto.PerformanceMetrics);
         if (!success)
         {
             throw new InvalidOperationException("No se pudo configurar el deporte");

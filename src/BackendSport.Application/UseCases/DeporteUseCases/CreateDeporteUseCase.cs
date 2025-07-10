@@ -15,34 +15,34 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
 
         public async Task<DeporteDto> ExecuteAsync(DeporteDto dto)
         {
-            if (await _repository.ExistsByNombreAsync(dto.Nombre))
+            if (await _repository.ExistsByNameAsync(dto.Name))
                 throw new Exception("Ya existe un deporte con ese nombre.");
 
             var deporte = new Deporte
             {
                 Id = System.Guid.NewGuid().ToString(),
-                Nombre = dto.Nombre,
-                Modalidad = dto.Modalidad ?? new List<string>(),
-                Superficie = dto.Superficie ?? new List<string>(),
-                Posiciones = dto.Posiciones ?? new List<string>(),
-                Estadisticas = dto.Estadisticas ?? new List<string>(),
-                MetricasRendimiento = dto.MetricasRendimiento ?? new List<string>(),
-                TipoEvaluaciones = dto.TipoEvaluaciones ?? new List<string>(),
-                Formaciones = dto.Formaciones ?? new List<string>(),
-                NivelCompetitivo = dto.NivelCompetitivo ?? new List<string>()
+                Name = dto.Name,
+                Modalities = dto.Modalities ?? new List<string>(),
+                Surfaces = dto.Surfaces ?? new List<string>(),
+                Positions = dto.Positions ?? new List<string>(),
+                Statistics = dto.Statistics ?? new List<string>(),
+                PerformanceMetrics = dto.PerformanceMetrics ?? new List<string>(),
+                EvaluationTypes = dto.EvaluationTypes ?? new List<string>(),
+                Formations = dto.Formations ?? new List<string>(),
+                CompetitiveLevel = dto.CompetitiveLevel ?? new List<string>()
             };
             await _repository.AddAsync(deporte);
             return new DeporteDto
             {
-                Nombre = deporte.Nombre,
-                Modalidad = deporte.Modalidad,
-                Superficie = deporte.Superficie,
-                Posiciones = deporte.Posiciones,
-                Estadisticas = deporte.Estadisticas,
-                MetricasRendimiento = deporte.MetricasRendimiento,
-                TipoEvaluaciones = deporte.TipoEvaluaciones,
-                Formaciones = deporte.Formaciones,
-                NivelCompetitivo = deporte.NivelCompetitivo
+                Name = deporte.Name,
+                Modalities = deporte.Modalities,
+                Surfaces = deporte.Surfaces,
+                Positions = deporte.Positions,
+                Statistics = deporte.Statistics,
+                PerformanceMetrics = deporte.PerformanceMetrics,
+                EvaluationTypes = deporte.EvaluationTypes,
+                Formations = deporte.Formations,
+                CompetitiveLevel = deporte.CompetitiveLevel
             };
         }
     }

@@ -1,6 +1,7 @@
 using MongoDB.Driver;
 using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Domain.Entities.AuthEntities;
+using BackendSport.Domain.Services;
 
 namespace BackendSport.Infrastructure.Persistence.AuthPersistence{
     public class UserRepository : IUserRepository
@@ -45,11 +46,30 @@ namespace BackendSport.Infrastructure.Persistence.AuthPersistence{
             var user = await GetByIdAsync(userId);
             if (user == null) return false;
 
-            if (user.AddSport(sportId))
+            if (UserSportService.AddSportToUser(user, sportId))
             {
                 return await UpdateAsync(user);
             }
             return false;
+        }
+        public async Task<bool> AddSportToUserAsync(string userId, UserSport userSport)
+        {
+            var user = await GetByIdAsync(userId);
+            if (user == null) return false;
+
+            // Verificar que el usuario no tenga ya el máximo de deportes
+            if (user.Sports.Count >= 3)
+                return false;
+
+            // Verificar que el usuario no tenga ya este deporte
+            if (user.Sports.Any(s => s.SportId == userSport.SportId))
+                return false;
+
+            // Agregar el deporte con su configuración inicial
+            user.Sports.Add(userSport);
+            user.UpdatedAt = DateTime.UtcNow;
+            
+            return await UpdateAsync(user);
         }
         public async Task<bool> RemoveSportFromUserAsync(string userId, string sportId)
         {

@@ -25,9 +25,9 @@ namespace BackendSport.Infrastructure.Persistence.DeportePersistence
             return await _deportes.Find(d => d.Id == id).FirstOrDefaultAsync();
         }
 
-        public async Task<Deporte?> GetByNombreAsync(string nombre)
+        public async Task<Deporte?> GetByNameAsync(string name)
         {
-            return await _deportes.Find(d => d.Nombre == nombre).FirstOrDefaultAsync();
+            return await _deportes.Find(d => d.Name == name).FirstOrDefaultAsync();
         }
 
         public async Task AddAsync(Deporte deporte)
@@ -45,9 +45,9 @@ namespace BackendSport.Infrastructure.Persistence.DeportePersistence
             await _deportes.DeleteOneAsync(d => d.Id == id);
         }
 
-        public async Task<bool> ExistsByNombreAsync(string nombre)
+        public async Task<bool> ExistsByNameAsync(string name)
         {
-            return await _deportes.Find(d => d.Nombre == nombre).AnyAsync();
+            return await _deportes.Find(d => d.Name == name).AnyAsync();
         }
     }
 } 

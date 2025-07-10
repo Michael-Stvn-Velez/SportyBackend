@@ -10,6 +10,7 @@ namespace BackendSport.Application.Interfaces.AuthInterfaces{
        Task<bool> AddRolToUserAsync(string userId, string rolId);
        Task<bool> UpdateAsync(User user);
        Task<bool> AddSportToUserAsync(string userId, string sportId);
+       Task<bool> AddSportToUserAsync(string userId, UserSport userSport);
        Task<bool> RemoveSportFromUserAsync(string userId, string sportId);
     } 
 

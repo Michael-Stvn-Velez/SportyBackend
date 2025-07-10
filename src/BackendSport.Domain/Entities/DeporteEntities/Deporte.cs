@@ -9,14 +9,14 @@ namespace BackendSport.Domain.Entities.DeporteEntities
         [BsonId]
         [BsonElement("_id")]
         public required string Id { get; set; }
-        public required string Nombre { get; set; }
-        public List<string>? Modalidad { get; set; } = new List<string>();
-        public List<string>? Superficie { get; set; } = new List<string>();
-        public List<string>? Posiciones { get; set; } = new List<string>();
-        public List<string>? Estadisticas { get; set; } = new List<string>();
-        public List<string>? MetricasRendimiento { get; set; } = new List<string>();
-        public List<string>? TipoEvaluaciones { get; set; } = new List<string>();
-        public List<string>? Formaciones { get; set; } = new List<string>();
-        public List<string>? NivelCompetitivo { get; set; } = new List<string>();
+        public required string Name { get; set; }
+        public List<string>? Modalities { get; set; } = new List<string>();
+        public List<string>? Surfaces { get; set; } = new List<string>();
+        public List<string>? Positions { get; set; } = new List<string>();
+        public List<string>? Statistics { get; set; } = new List<string>();
+        public List<string>? PerformanceMetrics { get; set; } = new List<string>();
+        public List<string>? EvaluationTypes { get; set; } = new List<string>();
+        public List<string>? Formations { get; set; } = new List<string>();
+        public List<string>? CompetitiveLevel { get; set; } = new List<string>();
     }
 } 

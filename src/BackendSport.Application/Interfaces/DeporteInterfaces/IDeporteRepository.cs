@@ -8,10 +8,10 @@ namespace BackendSport.Application.Interfaces.DeporteInterfaces
     {
         Task<List<Deporte>> GetAllAsync();
         Task<Deporte?> GetByIdAsync(string id);
-        Task<Deporte?> GetByNombreAsync(string nombre);
+        Task<Deporte?> GetByNameAsync(string name);
         Task AddAsync(Deporte deporte);
         Task UpdateAsync(string id, Deporte deporte);
         Task DeleteAsync(string id);
-        Task<bool> ExistsByNombreAsync(string nombre);
+        Task<bool> ExistsByNameAsync(string name);
     }
 } 

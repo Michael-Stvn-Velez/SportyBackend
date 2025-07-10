@@ -29,6 +29,12 @@ namespace BackendSport.Application.UseCases.AuthUseCases{
                 Name = createUserDto.Name,
                 Email = createUserDto.Email,
                 Password = _passwordService.HashPassword(createUserDto.Password),
+                DocumentTypeId = createUserDto.DocumentTypeId,
+                DocumentNumber = createUserDto.DocumentNumber,
+                CountryId = createUserDto.CountryId,
+                DepartmentId = createUserDto.DepartmentId,
+                MunicipalityId = createUserDto.MunicipalityId,
+                LocalityId = createUserDto.LocalityId,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -41,6 +47,12 @@ namespace BackendSport.Application.UseCases.AuthUseCases{
                 Id = createdUser.Id.ToString(),
                 Name = createdUser.Name,
                 Email = createdUser.Email,
+                DocumentTypeId = createdUser.DocumentTypeId,
+                DocumentNumber = createdUser.DocumentNumber,
+                CountryId = createdUser.CountryId,
+                DepartmentId = createdUser.DepartmentId,
+                MunicipalityId = createdUser.MunicipalityId,
+                LocalityId = createdUser.LocalityId,
                 CreatedAt = createdUser.CreatedAt
             };
         }
