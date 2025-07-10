@@ -12,6 +12,7 @@ using BackendSport.Infrastructure.Persistence.AuthPersistence;
 using BackendSport.Application.Interfaces.DeporteInterfaces;
 using BackendSport.Infrastructure.Persistence.DeportePersistence;
 using BackendSport.Application.UseCases.DeporteUseCases;
+using BackendSport.Application.UseCases.LocationUseCases;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -109,6 +110,15 @@ builder.Services.AddScoped<GetAllDeportesUseCase>();
 builder.Services.AddScoped<GetDeporteByIdUseCase>();
 builder.Services.AddScoped<UpdateDeporteUseCase>();
 builder.Services.AddScoped<DeleteDeporteUseCase>();
+
+// Casos de uso de ubicación
+builder.Services.AddScoped<GetLocationHierarchyUseCase>();
+builder.Services.AddScoped<GetDocumentTypesByCountryUseCase>();
+builder.Services.AddScoped<CreateCountryUseCase>();
+builder.Services.AddScoped<CreateDepartmentUseCase>();
+builder.Services.AddScoped<CreateMunicipalityUseCase>();
+builder.Services.AddScoped<CreateLocalityUseCase>();
+builder.Services.AddScoped<CreateDocumentTypeUseCase>();
 
 var app = builder.Build();
 
