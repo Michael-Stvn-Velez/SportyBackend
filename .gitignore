@@ -347,6 +347,7 @@ FodyWeavers.xsd
 
 # Custom
 appsettings.*.json
+appsettings.json
 !appsettings.example.json
 **/wwwroot/*
 !**/wwwroot/.gitkeep

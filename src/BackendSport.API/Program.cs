@@ -13,18 +13,23 @@ using BackendSport.Application.Interfaces.DeporteInterfaces;
 using BackendSport.Infrastructure.Persistence.DeportePersistence;
 using BackendSport.Application.UseCases.DeporteUseCases;
 using BackendSport.Application.UseCases.LocationUseCases;
+using BackendSport.API.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar CORS
+// Configurar CORS mejorado
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSwagger", policy =>
     {
-        policy.WithOrigins("http://localhost:5001")
+        policy.WithOrigins("http://localhost:5001", "https://localhost:5001")
               .AllowAnyMethod()
-              .AllowAnyHeader();
-        // .AllowCredentials(); // No usar a menos que sea estrictamente necesario
+              .AllowAnyHeader()
+              .WithExposedHeaders("X-RateLimit-Limit", "X-RateLimit-Remaining", "X-RateLimit-Reset", "Retry-After")
+              .SetIsOriginAllowedToAllowWildcardSubdomains();
     });
 });
 
@@ -37,7 +42,7 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "BackendSport API",
         Version = "v1",
-        Description = "API para gestión de usuarios con Clean Architecture y MongoDB"
+        Description = "API para gestión de usuarios con Clean Architecture y MongoDB - Seguridad Avanzada"
     });
     
     // Incluir comentarios XML para documentación
@@ -77,6 +82,54 @@ builder.Services.AddSwaggerGen(c =>
 
 // Agregar servicios de Infrastructure
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// Configurar autenticación JWT
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<BackendSport.Infrastructure.Services.JwtSettings>();
+if (jwtSettings != null)
+{
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+            ValidateIssuer = jwtSettings.ValidateIssuer,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidateAudience = jwtSettings.ValidateAudience,
+            ValidAudience = jwtSettings.Audience,
+            ValidateLifetime = jwtSettings.ValidateLifetime,
+            ClockSkew = TimeSpan.FromMinutes(jwtSettings.ClockSkewMinutes),
+            RequireExpirationTime = true,
+            RequireSignedTokens = true
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                {
+                    context.Response.Headers.Add("Token-Expired", "true");
+                }
+                return Task.CompletedTask;
+            },
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+                var result = System.Text.Json.JsonSerializer.Serialize(new { error = "Unauthorized", message = "Token inválido o expirado" });
+                context.Response.WriteAsync(result);
+                return Task.CompletedTask;
+            }
+        };
+    });
+}
 
 //Repositorios
 builder.Services.AddScoped<IRolRepository, RolRepository>();
@@ -124,7 +177,17 @@ builder.Services.AddScoped<CreateDocumentTypeUseCase>();
 
 var app = builder.Build();
 
-// Configurar pipeline HTTP
+// Configurar pipeline HTTP con middlewares de seguridad
+
+// Middleware de headers de seguridad (debe ir primero)
+app.UseMiddleware<SecurityHeadersMiddleware>();
+
+// Middleware de sanitización de inputs
+app.UseMiddleware<InputSanitizationMiddleware>();
+
+// Middleware de rate limiting
+app.UseMiddleware<RateLimitingMiddleware>();
+
 // Habilitar Swagger en todos los entornos para desarrollo
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -146,7 +209,11 @@ app.UseSwaggerUI(c =>
 app.UseCors("AllowSwagger");
 
 app.UseHttpsRedirection();
+
+// Autenticación y autorización
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
