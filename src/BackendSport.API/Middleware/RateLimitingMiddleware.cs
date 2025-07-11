@@ -1,5 +1,6 @@
 using BackendSport.Infrastructure.Services;
 using System.Net;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BackendSport.API.Middleware;
 
@@ -17,23 +18,14 @@ namespace BackendSport.API.Middleware;
 public class RateLimitingMiddleware
 {
     private readonly RequestDelegate _next;
-    private readonly RateLimitingService _rateLimitingService;
-    private readonly ILogger<RateLimitingMiddleware> _logger;
 
     /// <summary>
     /// Inicializa una nueva instancia del middleware de rate limiting.
     /// </summary>
     /// <param name="next">Siguiente middleware en el pipeline</param>
-    /// <param name="rateLimitingService">Servicio de rate limiting</param>
-    /// <param name="logger">Logger para registrar eventos</param>
-    public RateLimitingMiddleware(
-        RequestDelegate next,
-        RateLimitingService rateLimitingService,
-        ILogger<RateLimitingMiddleware> logger)
+    public RateLimitingMiddleware(RequestDelegate next)
     {
         _next = next;
-        _rateLimitingService = rateLimitingService;
-        _logger = logger;
     }
 
     /// <summary>
@@ -52,25 +44,29 @@ public class RateLimitingMiddleware
     /// </remarks>
     public async Task InvokeAsync(HttpContext context)
     {
+        // Obtener servicios desde el IServiceProvider
+        var rateLimitingService = context.RequestServices.GetRequiredService<RateLimitingService>();
+        var logger = context.RequestServices.GetRequiredService<ILogger<RateLimitingMiddleware>>();
+
         var ipAddress = GetClientIpAddress(context);
         var endpoint = context.Request.Path.Value ?? string.Empty;
         var userId = GetUserIdFromContext(context);
 
         // Rate limiting por IP
-        var ipAllowed = await _rateLimitingService.TryAcquireForIpAsync(
+        var ipAllowed = await rateLimitingService.TryAcquireForIpAsync(
             ipAddress, 
             maxRequests: 100, 
             window: TimeSpan.FromMinutes(1));
 
         if (!ipAllowed)
         {
-            _logger.LogWarning("Rate limit exceeded for IP: {IpAddress}", ipAddress);
+            logger.LogWarning("Rate limit exceeded for IP: {IpAddress}", ipAddress);
             await ReturnRateLimitExceeded(context, "Too many requests from this IP");
             return;
         }
 
         // Rate limiting por endpoint específico
-        var endpointAllowed = await _rateLimitingService.TryAcquireForEndpointAsync(
+        var endpointAllowed = await rateLimitingService.TryAcquireForEndpointAsync(
             endpoint,
             ipAddress,
             maxRequests: GetMaxRequestsForEndpoint(endpoint),
@@ -78,7 +74,7 @@ public class RateLimitingMiddleware
 
         if (!endpointAllowed)
         {
-            _logger.LogWarning("Rate limit exceeded for endpoint: {Endpoint} from IP: {IpAddress}", endpoint, ipAddress);
+            logger.LogWarning("Rate limit exceeded for endpoint: {Endpoint} from IP: {IpAddress}", endpoint, ipAddress);
             await ReturnRateLimitExceeded(context, "Too many requests to this endpoint");
             return;
         }
@@ -86,14 +82,14 @@ public class RateLimitingMiddleware
         // Rate limiting por usuario (si está autenticado)
         if (!string.IsNullOrEmpty(userId))
         {
-            var userAllowed = await _rateLimitingService.TryAcquireForUserAsync(
+            var userAllowed = await rateLimitingService.TryAcquireForUserAsync(
                 userId,
                 maxRequests: 200,
                 window: TimeSpan.FromMinutes(1));
 
             if (!userAllowed)
             {
-                _logger.LogWarning("Rate limit exceeded for user: {UserId}", userId);
+                logger.LogWarning("Rate limit exceeded for user: {UserId}", userId);
                 await ReturnRateLimitExceeded(context, "Too many requests for this user");
                 return;
             }
