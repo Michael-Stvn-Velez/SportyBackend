@@ -33,8 +33,10 @@ public static class DependencyInjection
         services.AddScoped<ICountryRepository, CountryRepository>();
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IMunicipalityRepository, MunicipalityRepository>();
+        services.AddScoped<ICityRepository, CityRepository>();
         services.AddScoped<ILocalityRepository, LocalityRepository>();
         services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
+        services.AddScoped<ILocationHierarchyRepository, LocationHierarchyRepository>();
 
         return services;
     }

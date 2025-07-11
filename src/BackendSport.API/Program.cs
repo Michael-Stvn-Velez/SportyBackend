@@ -110,6 +110,7 @@ builder.Services.AddScoped<GetAllDeportesUseCase>();
 builder.Services.AddScoped<GetDeporteByIdUseCase>();
 builder.Services.AddScoped<UpdateDeporteUseCase>();
 builder.Services.AddScoped<DeleteDeporteUseCase>();
+builder.Services.AddScoped<LoginOwnerUserUseCase>();
 
 // Casos de uso de ubicación
 builder.Services.AddScoped<GetLocationHierarchyUseCase>();
@@ -117,6 +118,7 @@ builder.Services.AddScoped<GetDocumentTypesByCountryUseCase>();
 builder.Services.AddScoped<CreateCountryUseCase>();
 builder.Services.AddScoped<CreateDepartmentUseCase>();
 builder.Services.AddScoped<CreateMunicipalityUseCase>();
+builder.Services.AddScoped<CreateCityUseCase>();
 builder.Services.AddScoped<CreateLocalityUseCase>();
 builder.Services.AddScoped<CreateDocumentTypeUseCase>();
 

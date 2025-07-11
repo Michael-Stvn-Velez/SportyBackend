@@ -34,6 +34,7 @@ namespace BackendSport.Application.UseCases.AuthUseCases{
                 CountryId = createUserDto.CountryId,
                 DepartmentId = createUserDto.DepartmentId,
                 MunicipalityId = createUserDto.MunicipalityId,
+                CityId = createUserDto.CityId,
                 LocalityId = createUserDto.LocalityId,
                 CreatedAt = DateTime.UtcNow
             };
@@ -52,6 +53,7 @@ namespace BackendSport.Application.UseCases.AuthUseCases{
                 CountryId = createdUser.CountryId,
                 DepartmentId = createdUser.DepartmentId,
                 MunicipalityId = createdUser.MunicipalityId,
+                CityId = createdUser.CityId,
                 LocalityId = createdUser.LocalityId,
                 CreatedAt = createdUser.CreatedAt
             };
