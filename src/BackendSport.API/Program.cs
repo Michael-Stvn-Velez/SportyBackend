@@ -80,8 +80,56 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Agregar servicios de Infrastructure (incluye JWT y autenticación)
+// Agregar servicios de Infrastructure
 builder.Services.AddInfrastructure(builder.Configuration);
+
+// Configurar autenticación JWT
+var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<BackendSport.Infrastructure.Services.JwtSettings>();
+if (jwtSettings != null)
+{
+    builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
+            ValidateIssuer = jwtSettings.ValidateIssuer,
+            ValidIssuer = jwtSettings.Issuer,
+            ValidateAudience = jwtSettings.ValidateAudience,
+            ValidAudience = jwtSettings.Audience,
+            ValidateLifetime = jwtSettings.ValidateLifetime,
+            ClockSkew = TimeSpan.FromMinutes(jwtSettings.ClockSkewMinutes),
+            RequireExpirationTime = true,
+            RequireSignedTokens = true
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                {
+                    context.Response.Headers.Add("Token-Expired", "true");
+                }
+                return Task.CompletedTask;
+            },
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.StatusCode = 401;
+                context.Response.ContentType = "application/json";
+                var result = System.Text.Json.JsonSerializer.Serialize(new { error = "Unauthorized", message = "Token inválido o expirado" });
+                context.Response.WriteAsync(result);
+                return Task.CompletedTask;
+            }
+        };
+    });
+}
 
 //Repositorios
 builder.Services.AddScoped<IRolRepository, RolRepository>();

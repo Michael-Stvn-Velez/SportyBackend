@@ -7,9 +7,6 @@ using BackendSport.Application.Interfaces.DeporteInterfaces;
 using BackendSport.Infrastructure.Persistence.DeportePersistence;
 using BackendSport.Application.Interfaces.LocationInterfaces;
 using BackendSport.Infrastructure.Persistence.LocationPersistence;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace BackendSport.Infrastructure;
 
@@ -62,50 +59,6 @@ public static class DependencyInjection
         configuration.GetSection("JwtSettings").Bind(jwtSettings);
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
         services.AddSingleton(jwtSettings);
-
-        // Configurar autenticación JWT
-        services.AddAuthentication(options =>
-        {
-            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        })
-        .AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = jwtSettings.ValidateIssuerSigningKey,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
-                ValidateIssuer = jwtSettings.ValidateIssuer,
-                ValidIssuer = jwtSettings.Issuer,
-                ValidateAudience = jwtSettings.ValidateAudience,
-                ValidAudience = jwtSettings.Audience,
-                ValidateLifetime = jwtSettings.ValidateLifetime,
-                ClockSkew = TimeSpan.FromMinutes(jwtSettings.ClockSkewMinutes),
-                RequireExpirationTime = true,
-                RequireSignedTokens = true
-            };
-
-            options.Events = new JwtBearerEvents
-            {
-                OnAuthenticationFailed = context =>
-                {
-                    if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
-                    {
-                        context.Response.Headers.Add("Token-Expired", "true");
-                    }
-                    return Task.CompletedTask;
-                },
-                OnChallenge = context =>
-                {
-                    context.HandleResponse();
-                    context.Response.StatusCode = 401;
-                    context.Response.ContentType = "application/json";
-                    var result = System.Text.Json.JsonSerializer.Serialize(new { error = "Unauthorized", message = "Token inválido o expirado" });
-                    context.Response.WriteAsync(result);
-                    return Task.CompletedTask;
-                }
-            };
-        });
 
         // Registrar servicios de seguridad
         services.AddScoped<IPasswordService, PasswordService>();

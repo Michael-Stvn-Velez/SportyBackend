@@ -1,5 +1,6 @@
 using System.Collections.Concurrent;
 using System.Threading.RateLimiting;
+using Microsoft.Extensions.Logging;
 
 namespace BackendSport.Infrastructure.Services;
 
