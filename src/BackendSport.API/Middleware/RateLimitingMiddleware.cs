@@ -182,11 +182,11 @@ public class RateLimitingMiddleware
             retry_after = 60 // segundos
         };
 
-        // Agregar headers de rate limiting
-        context.Response.Headers.Add("X-RateLimit-Limit", "100");
-        context.Response.Headers.Add("X-RateLimit-Remaining", "0");
-        context.Response.Headers.Add("X-RateLimit-Reset", DateTimeOffset.UtcNow.AddMinutes(1).ToUnixTimeSeconds().ToString());
-        context.Response.Headers.Add("Retry-After", "60");
+        // Agregar headers de rate limiting usando indexer para evitar excepciones por duplicados
+        context.Response.Headers["X-RateLimit-Limit"] = "100";
+        context.Response.Headers["X-RateLimit-Remaining"] = "0";
+        context.Response.Headers["X-RateLimit-Reset"] = DateTimeOffset.UtcNow.AddMinutes(1).ToUnixTimeSeconds().ToString();
+        context.Response.Headers["Retry-After"] = "60";
 
         await context.Response.WriteAsJsonAsync(response);
     }
