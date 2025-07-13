@@ -52,6 +52,9 @@ builder.Services.AddInfrastructure(builder.Configuration);
 // Authentication - Configurar autenticación JWT
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
+// GraphQL - Configurar servicios de GraphQL
+builder.Services.AddGraphQLServices(builder.Environment);
+
 // Dependency Injection - Registrar repositorios y casos de uso
 builder.Services.AddRepositories()
                 .AddUseCases();
@@ -76,6 +79,9 @@ app.UseAuthorization();
 
 // Controller Mapping - Mapear controladores con versionado automático
 app.MapVersionedControllers();
+
+// GraphQL - Configurar endpoint de GraphQL
+app.UseGraphQLServices(builder.Environment);
 
 // Application Startup
 app.Run();

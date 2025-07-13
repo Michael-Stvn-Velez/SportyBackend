@@ -2,6 +2,7 @@ using BackendSport.Application.Interfaces.AuthInterfaces;
 using BackendSport.Application.Interfaces.DeporteInterfaces;
 using BackendSport.Application.Interfaces.PermisosInterfaces;
 using BackendSport.Application.Interfaces.RolInterfaces;
+using BackendSport.Application.Interfaces.LocationInterfaces;
 using BackendSport.Application.UseCases.AuthUseCases;
 using BackendSport.Application.UseCases.DeporteUseCases;
 using BackendSport.Application.UseCases.LocationUseCases;
@@ -12,6 +13,7 @@ using BackendSport.Infrastructure.Persistence.AuthPersistence;
 using BackendSport.Infrastructure.Persistence.DeportePersistence;
 using BackendSport.Infrastructure.Persistence.PermisosPersistence;
 using BackendSport.Infrastructure.Persistence.RolPersistence;
+using BackendSport.Infrastructure.Persistence.LocationPersistence;
 
 namespace BackendSport.API.Configuration;
 
@@ -35,6 +37,12 @@ public static class ServiceCollectionExtensions
         
         // Owner User Repository - Para autenticación de propietarios
         services.AddScoped<IOwnerUserRepository, OwnerUserRepository>();
+        
+        // Location Repositories - Para gestión de ubicaciones
+        services.AddScoped<ICountryRepository, CountryRepository>();
+        services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+        services.AddScoped<IMunicipalityRepository, MunicipalityRepository>();
+        services.AddScoped<IDocumentTypeRepository, DocumentTypeRepository>();
         
         return services;
     }
