@@ -13,7 +13,7 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
             _repository = repository;
         }
 
-        public async Task<DeporteDto> ExecuteAsync(DeporteDto dto)
+        public async Task<DeporteListDto> ExecuteAsync(DeporteDto dto)
         {
             if (await _repository.ExistsByNameAsync(dto.Name))
                 throw new Exception("Ya existe un deporte con ese nombre.");
@@ -31,9 +31,12 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
                 Formations = dto.Formations ?? new List<string>(),
                 CompetitiveLevel = dto.CompetitiveLevel ?? new List<string>()
             };
+            
             await _repository.AddAsync(deporte);
-            return new DeporteDto
+            
+            return new DeporteListDto
             {
+                Id = deporte.Id,
                 Name = deporte.Name,
                 Modalities = deporte.Modalities,
                 Surfaces = deporte.Surfaces,

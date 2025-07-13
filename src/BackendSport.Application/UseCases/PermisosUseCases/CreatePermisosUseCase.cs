@@ -15,7 +15,7 @@ namespace BackendSport.Application.UseCases.PermisosUseCases
             _permisosRepository = permisosRepository;
         }
 
-        public async Task<PermisosDto> ExecuteAsync(PermisosDto permisosDto)
+        public async Task<PermisosListDto> ExecuteAsync(PermisosDto permisosDto)
         {
             if (await _permisosRepository.ExisteNombreAsync(permisosDto.Nombre))
                 throw new Exception("Ya existe un permisos con ese nombre.");
@@ -27,8 +27,9 @@ namespace BackendSport.Application.UseCases.PermisosUseCases
                 Descripcion = permisosDto.Descripcion,
             };
             var creado = await _permisosRepository.CrearPermisosAsync(permisos);
-            return new PermisosDto
+            return new PermisosListDto
             {
+                Id = creado.Id,
                 Nombre = creado.Nombre,
                 Descripcion = creado.Descripcion
             };

@@ -85,10 +85,10 @@ namespace BackendSport.API.Controllers.DeporteControllers
         /// </summary>
         /// <param name="dto">Datos del deporte a crear</param>
         /// <returns>El deporte creado</returns>
-        /// <response code="200">Deporte creado correctamente</response>
+        /// <response code="201">Deporte creado correctamente</response>
         /// <response code="400">Error de validación o deporte duplicado</response>
         [HttpPost]
-        [ProducesResponseType(typeof(DeporteDto), 200)]
+        [ProducesResponseType(typeof(DeporteListDto), 201)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Create([FromBody] DeporteDto dto)
         {
@@ -97,7 +97,7 @@ namespace BackendSport.API.Controllers.DeporteControllers
                 if (string.IsNullOrWhiteSpace(dto.Name))
                     return BadRequest(new { mensaje = "El nombre es obligatorio." });
                 var result = await _createUseCase.ExecuteAsync(dto);
-                return Ok(result);
+                return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace BackendSport.API.Controllers.DeporteControllers
         /// <response code="200">Deporte actualizado correctamente</response>
         /// <response code="400">Error de validación o deporte duplicado</response>
         [HttpPut("{id}")]
-        [ProducesResponseType(typeof(DeporteDto), 200)]
+        [ProducesResponseType(typeof(DeporteListDto), 200)]
         [ProducesResponseType(400)]
         public async Task<IActionResult> Update(string id, [FromBody] DeporteUpdateDto dto)
         {

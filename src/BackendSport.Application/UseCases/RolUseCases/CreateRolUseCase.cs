@@ -15,7 +15,7 @@ namespace BackendSport.Application.UseCases.RolUseCases
             _rolRepository = rolRepository;
         }
 
-        public async Task<RolDto> ExecuteAsync(RolDto rolDto)
+        public async Task<RolListDto> ExecuteAsync(RolDto rolDto)
         {
             if (await _rolRepository.ExisteNombreAsync(rolDto.Nombre))
                 throw new Exception("Ya existe un rol con ese nombre.");
@@ -28,10 +28,12 @@ namespace BackendSport.Application.UseCases.RolUseCases
                 Permisos = new List<string>()
             };
             var creado = await _rolRepository.CrearRolAsync(rol);
-            return new RolDto
+            return new RolListDto
             {
+                Id = creado.Id,
                 Nombre = creado.Nombre,
-                Descripcion = creado.Descripcion
+                Descripcion = creado.Descripcion,
+                Permisos = creado.Permisos
             };
         }
     }

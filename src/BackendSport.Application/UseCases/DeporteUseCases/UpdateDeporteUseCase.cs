@@ -13,7 +13,7 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
             _repository = repository;
         }
 
-        public async Task<DeporteDto> ExecuteAsync(string id, DeporteUpdateDto dto)
+        public async Task<DeporteListDto> ExecuteAsync(string id, DeporteUpdateDto dto)
         {
             var existente = await _repository.GetByIdAsync(id);
             if (existente == null) 
@@ -32,8 +32,10 @@ namespace BackendSport.Application.UseCases.DeporteUseCases
             existente.CompetitiveLevel = dto.CompetitiveLevel ?? new List<string>();
 
             await _repository.UpdateAsync(id, existente);
-            return new DeporteDto
+            
+            return new DeporteListDto
             {
+                Id = existente.Id,
                 Name = existente.Name,
                 Modalities = existente.Modalities,
                 Surfaces = existente.Surfaces,
